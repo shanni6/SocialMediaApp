@@ -5,10 +5,18 @@ import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import { client } from "../client";
+
 const Login = () => {
     const navigate = useNavigate();
     const responseGoogle = (response) => {
         localStorage.setItem("user", JSON.stringify(response.profileObj));
+
+        //const doc = {
+        //  _id: response.profileObj.googleId,
+        //_type: "user",
+        //userName: response.profileObj.name,
+        //image: response.profileObj.imageUrl,
+        // };
 
         const { name, googleId, imageUrl } = response.profileObj;
 
@@ -18,6 +26,11 @@ const Login = () => {
             userName: name,
             image: imageUrl,
         };
+        // console.log(
+        //     "🚀 ~ file: Login.jsx ~ line 22 ~ responseGoogle ~ name",
+        //     response
+        // );
+
         client.createIfNotExists(doc).then(() => {
             navigate("/", { replace: true });
         });
@@ -68,5 +81,7 @@ const Login = () => {
         </div>
     );
 };
+console.log("🚀 ~ file: Login.jsx ~ line 84 ~ Login ~ Login", Login);
+console.log("🚀 ~ file: Login.jsx ~ line 84 ~ Login ~ Login", Login);
 
 export default Login;
