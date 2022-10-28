@@ -26,10 +26,6 @@ const Login = () => {
             userName: name,
             image: imageUrl,
         };
-        // console.log(
-        //     "🚀 ~ file: Login.jsx ~ line 22 ~ responseGoogle ~ name",
-        //     response
-        // );
 
         client.createIfNotExists(doc).then(() => {
             navigate("/", { replace: true });
@@ -81,7 +77,5 @@ const Login = () => {
         </div>
     );
 };
-console.log("🚀 ~ file: Login.jsx ~ line 84 ~ Login ~ Login", Login);
-console.log("🚀 ~ file: Login.jsx ~ line 84 ~ Login ~ Login", Login);
 
 export default Login;
