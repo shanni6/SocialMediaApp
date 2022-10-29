@@ -1,30 +1,30 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
+import {GoogleLogin, GoogleOAuthProvider, googleLogout} from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import { client } from "../client";
+import { gapi } from "gapi-script";
+import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
+
 
 const Login = () => {
+
     const navigate = useNavigate();
+
     const responseGoogle = (response) => {
-        localStorage.setItem("user", JSON.stringify(response.profileObj));
+        const userResponse = jwt_decode(response.credential);
 
-        //const doc = {
-        //  _id: response.profileObj.googleId,
-        //_type: "user",
-        //userName: response.profileObj.name,
-        //image: response.profileObj.imageUrl,
-        // };
-
-        const { name, googleId, imageUrl } = response.profileObj;
+        localStorage.setItem("user", JSON.stringify(userResponse));
+        const { name, sub, picture } = userResponse;
 
         const doc = {
-            _id: googleId,
+            _id: sub,
             _type: "user",
             userName: name,
-            image: imageUrl,
+            image: picture,
         };
 
         client.createIfNotExists(doc).then(() => {
@@ -53,25 +53,32 @@ const Login = () => {
                     <div className="p-5">
                         <img src={logo} width="130px" alt="logo" />
                     </div>
-                    <div className="shadow-2xl">
-                        <GoogleLogin
-                            clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-                            render={(renderProps) => (
-                                <button
-                                    type="button"
-                                    className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-                                    onClick={renderProps.onClick}
-                                    disabled={renderProps.disabled}
-                                >
-                                    <FcGoogle className="mr-4" />
-                                    Sign in with Google
-                                </button>
-                            )}
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-                            cookiePolicy="single_host_origin"
-                        />
-                    </div>
+
+                    <GoogleOAuthProvider
+                        clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+                    >
+                        <div className="shadow-2xl">
+                            <GoogleLogin
+                                clientId={
+                                    process.env.REACT_APP_GOOGLE_API_TOKEN
+                                }
+                                render={(renderProps) => (
+                                    <button
+                                        type="button"
+                                        className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
+                                        onClick={renderProps.onClick}
+                                        disabled={renderProps.disabled}
+                                    >
+                                        <FcGoogle className="mr-4" />
+                                        Sign in with Google
+                                    </button>
+                                )}
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                cookiePolicy="single_host_origin"
+                            />
+                        </div>
+                    </GoogleOAuthProvider>
                 </div>
             </div>
         </div>
