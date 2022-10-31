@@ -1,17 +1,20 @@
 import React from "react";
-import {GoogleLogin, GoogleOAuthProvider, googleLogout} from "@react-oauth/google";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import { client } from "../client";
 import { gapi } from "gapi-script";
-import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
 
-
 const Login = () => {
-
+    window.gapi.load("client:auth2", () => {
+        window.gapi.client.init({
+            clientId: `${process.env.REACT_APP_GOOGLE_API_TOKEN}`,
+            plugin_name: "chat",
+        });
+    });
     const navigate = useNavigate();
 
     const responseGoogle = (response) => {

@@ -13,13 +13,15 @@ const App = () => {
                 : localStorage.clear();
 
         if (!User) navigate("/login");
-    }, []);
+    });
 
     return (
-        <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="/*" element={<Home />} />
-        </Routes>
+        <GoogleOAuthProvider>
+            <Routes>
+                <Route path="login" element={<Login />} />
+                <Route path="/*" element={<Home />} />
+            </Routes>
+        </GoogleOAuthProvider>
     );
 };
 

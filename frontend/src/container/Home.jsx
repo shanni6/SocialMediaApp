@@ -19,11 +19,9 @@ const Home = () => {
             : localStorage.clear();
     const scrollRef = useRef(null);
     useEffect(() => {
-      scrollRef.current.scrollTo(0,0)
-    
-      
+        scrollRef.current.scrollTo(0, 0);
     }, []);
-    
+
     useEffect(() => {
         const query = userQuery(userInfo?.googleId);
         client.fetch(query).then((data) => {
@@ -50,7 +48,7 @@ const Home = () => {
 
                     <Link to={`user-profile/${user?._id}`}>
                         <img src={user?.image} alt="logo" className="w-28" />
-                    </Link>           
+                    </Link>
                 </div>
             </div>
             {toggleSidebar && (
