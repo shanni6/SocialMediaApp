@@ -1,5 +1,5 @@
 export const userQuery = (userId) => {
-    const query = `*[_type == "user" && _id == '${userId}' ]`;
+    const query = `*[_type == "user" && _id == '${userId}']`;
     return query;
 };
 
@@ -22,25 +22,28 @@ export const searchQuery = (searchTerm) => {
             },
         },
     }`;
-    return query
+    return query;
 };
 
-export const feedQuery = `*[_type == 'pin' | order(createAt desc){
-image{
-            asset -> {
-                url
-            }
-        },
+export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
+  image{
+    asset->{
+      url
+    }
+  },
+      _id,
+      destination,
+      postedBy->{
         _id,
-        destination,
-        postedBy -> {
-            _id, userName, image
+        userName,
+        image
+      },
+      save[]{
+        _key,
+        postedBy->{
+          _id,
+          userName,
+          image
         },
-        save[]{
-            _key,
-            postedBy -> {
-                _id,userName,image
-            },
-        },
-
-}]`;
+      },
+    } `;

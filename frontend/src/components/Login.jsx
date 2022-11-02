@@ -82,6 +82,16 @@ const Login = () => {
                             />
                         </div>
                     </GoogleOAuthProvider>
+                    {/* <GoogleOAuthProvider
+                        clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+                        className="shadow-2xl"
+                    >
+                        <GoogleLogin
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy="single_host_origin"
+                        />
+                    </GoogleOAuthProvider> */}
                 </div>
             </div>
         </div>

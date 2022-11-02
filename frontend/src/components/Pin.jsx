@@ -6,12 +6,16 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 
 import { client, urlFor } from "../client";
+import { fetchUser } from "../utils/fetchUser";
 
-const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
+const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
     const [postHovered, setPostHovered] = useState(false);
     const [savingPost, setSavingPost] = useState(false);
     const navigate = useNavigate();
-
+    const user = fetchUser();
+    const alreadySaved = !!(save?.filter(
+        (item) => item.postedBy._id === user.googleId
+    ))?.length;
     return (
         <div className="m-2">
             <div
@@ -40,6 +44,11 @@ const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
                                 <MdDownloadForOffline />
                             </a>
                         </div>
+                        {alreadySaved ? (
+                            <button>Saved</button>
+                        ) : (
+                            <button>Save</button>
+                        )}
                     </div>
                 )}
             </div>
