@@ -12,6 +12,7 @@ const breakpointObj = {
 };
 
 const MasonaryLayout = ({ pins }) => {
+    
     return (
         <Masonry
             className="flex animate-slide-fwd"

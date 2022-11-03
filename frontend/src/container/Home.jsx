@@ -15,7 +15,6 @@ const Home = () => {
     const [user, setUser] = useState(null);
 
     const userInfo = fetchUser();
-    console.log("🚀 ~ file: Home.jsx ~ line 18 ~ Home ~ userInfo", userInfo);
 
     const scrollRef = useRef(null);
     useEffect(() => {
@@ -25,10 +24,7 @@ const Home = () => {
     useEffect(() => {
         const query = userQuery(userInfo?.sub);
         client.fetch(query).then((data) => {
-            console.log(
-                "🚀 ~ file: Home.jsx ~ line 27 ~ client.fetch ~ data",
-                data
-            );
+           
             setUser(data[0]);
         });
     }, []);
