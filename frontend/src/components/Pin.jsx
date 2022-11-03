@@ -14,6 +14,7 @@ const Pin = ({ pin }) => {
     const navigate = useNavigate();
 
     const { postedBy, image, _id, destination } = pin;
+    console.log("🚀 ~ file: Pin.jsx ~ line 17 ~ Pin ~ pin", pin);
 
     const user =
         localStorage.getItem("user") !== "undefined"
