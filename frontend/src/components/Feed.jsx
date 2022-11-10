@@ -37,6 +37,7 @@ const Feed = () => {
             />
         );
     }
+    if(!pins?.length) return <h2>No pins available</h2>
     return <div>{pins && <MasonaryLayout pins={pins} />}</div>;
 };
 

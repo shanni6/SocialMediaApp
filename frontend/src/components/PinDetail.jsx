@@ -123,7 +123,7 @@ const PinDetail = ({ user }) => {
                         <div className="max-h-370 overflow-y-auto">
                             {pinDetail?.comments?.map((comment, i) => (
                                 <div
-                                    className="flex pag-2 mt-5 items-center bg-white rounded-lg"
+                                    className="flex gap-2 mt-5 items-center bg-white rounded-lg"
                                     key={i}
                                 >
                                     <img
@@ -140,7 +140,7 @@ const PinDetail = ({ user }) => {
                                 </div>
                             ))}
                         </div>
-                        <div className="flex flex-wrap wt-6 gap-3">
+                        <div className="flex flex-wrap mt-6 gap-3">
                             <Link
                                 to={`/user-profile/${pinDetail.postedBy?._id}`}
                             >
