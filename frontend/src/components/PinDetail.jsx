@@ -9,20 +9,20 @@ import { pinDetailMorePinQuery, pinDetailQuery } from "../utils/data";
 import Spinner from "./Spinner";
 
 const PinDetail = ({ user }) => {
-    const [pins, setPins] = useState(null);
-    const [pinDetail, setPinDetail] = useState(null);
+    const { pinId } = useParams();
+    const [pins, setPins] = useState();
+    const [pinDetail, setPinDetail] = useState();
     const [comment, setComment] = useState("");
     const [addingComment, setAddingComment] = useState(false);
-    const { pinId } = useParams();
 
     const fetchPinDetails = () => {
         const query = pinDetailQuery(pinId);
         if (query) {
-            client.fetch(query).then((data) => {
+            client.fetch(`${query}`).then((data) => {
                 setPinDetail(data[0]);
                 if (data[0]) {
-                    const query = pinDetailMorePinQuery(data[0]);
-                    client.fetch(query).then((res) => setPins(res));
+                    const query1 = pinDetailMorePinQuery(data[0]);
+                    client.fetch(query1).then((res) => setPins(res));
                 }
             });
         }
