@@ -26,6 +26,11 @@ const UserProfile = () => {
     const navigate = useNavigate();
     const { userId } = useParams();
 
+    const User =
+        localStorage.getItem("user") !== "undefined"
+            ? JSON.parse(localStorage.getItem("user"))
+            : localStorage.clear();
+
     useEffect(() => {
         const query = userQuery(userId);
         client.fetch(query).then((data) => {
@@ -73,11 +78,9 @@ const UserProfile = () => {
                             {user.userName}
                         </h1>
                         <div className="absolute top-0 z-1 right-0 p-2">
-                            {userId === user._id && (
+                            {userId === User.sub && (
                                 <GoogleLogout
-                                    clientId={
-                                        process.env.REACT_APP_GOOGLE_API_TOKEN
-                                    }
+                                    clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
                                     render={(renderProps) => (
                                         <button
                                             type="button"
@@ -127,18 +130,15 @@ const UserProfile = () => {
                             Saved
                         </button>
                     </div>
-                {pins?.length ? (
-
-                    <div className="px-2">
-                        <MasonaryLayout pins={pins} />
-                    </div>
-                ):
-                (
-                    <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
-                        No Pins Found
-                    </div>
-                )
-                }
+                    {pins?.length ? (
+                        <div className="px-2">
+                            <MasonaryLayout pins={pins} />
+                        </div>
+                    ) : (
+                        <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
+                            No Pins Found
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

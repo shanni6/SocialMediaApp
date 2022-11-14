@@ -5,20 +5,22 @@ import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import { client } from "../client";
-
+import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
 
 const Login = () => {
     window.gapi.load("client:auth2", () => {
         window.gapi.client.init({
-            clientId: `${process.env.REACT_APP_GOOGLE_API_TOKEN}`,
+            client_id: `${process.env.REACT_APP_GOOGLE_API_TOKEN}`,
             plugin_name: "chat",
+            scope: ''
         });
     });
     const navigate = useNavigate();
 
     const responseGoogle = (response) => {
         const userResponse = jwt_decode(response.credential);
+        console.log("🚀 ~ file: Login.jsx ~ line 22 ~ responseGoogle ~ userResponse", userResponse)
 
         localStorage.setItem("user", JSON.stringify(userResponse));
         const { name, sub, picture } = userResponse;
